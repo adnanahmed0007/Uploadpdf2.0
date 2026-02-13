@@ -19,7 +19,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5173",
-            "https://your-frontend-url.onrender.com" // change later
+            "https://uploadpdf2-0.vercel.app"
         ],
         credentials: true,
     })
