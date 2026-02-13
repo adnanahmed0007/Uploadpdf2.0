@@ -28,7 +28,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:9090/authenttication/sinup',
+        'https://uploadpdf2-0-1.onrender.com/authenttication/sinup',
         {
           department: department.trim().toLowerCase(),
           username,
@@ -45,7 +45,7 @@ const Signup = () => {
 
         // Redirect to login after 2 seconds
         setTimeout(() => {
-          navigate('/login');
+          navigate('/');
         }, 2000);
       }
     } catch (e) {
