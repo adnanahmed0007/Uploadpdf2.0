@@ -1,12 +1,20 @@
 import Signupmakeschema from "../../models/Signup11.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 import Uploadpdfuser from "../../models/UserPdupload.js";
 import cloudinary from "cloudinary"
 cloudinary.config({
-    cloud_name: "",       // replace with your Cloudinary credentials
-    api_key: "",
-    api_secret: "",
-    secure: true
-})
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
+});
+console.log(process.env.CLOUDINARY_CLOUD_NAME);
+console.log(process.env.CLOUDINARY_API_KEY);
+console.log(process.env.CLOUDINARY_API_SECRET);
+
+
 const UploadPdf = async (req, res) => {
   try {
     const file = req.file;
@@ -20,7 +28,7 @@ const UploadPdf = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    
+
     cloudinary.v2.uploader.upload_stream(
       { resource_type: "raw" },
       async (error, result) => {
