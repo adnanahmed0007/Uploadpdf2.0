@@ -18,7 +18,7 @@ const Allpdfview = () => {
 
     try {
       if (department && branch && year && FileNampdfuser) {
-        const datagetback = await axios.post("https://uploadpdf2-0-1.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
+        const datagetback = await axios.post("https://uploadpdf2-0-2.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
           department: department.trim().toLowerCase(),
           branch: branch.trim().toLowerCase(),
           year,

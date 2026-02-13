@@ -39,7 +39,8 @@
 
   /* Blob Animation - Floating Background Orbs */
   @keyframes blob {
-    0%, 100% {
+    0%,
+    100% {
       transform: translate(0, 0) scale(1);
     }
     25% {
@@ -59,7 +60,8 @@
 
   /* Float Animation - For 3D Cards */
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0px);
     }
     50% {
@@ -73,7 +75,8 @@
 
   /* Gradient Animation - Moving Gradients */
   @keyframes gradient {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -88,7 +91,8 @@
 
   /* Bounce Animation - For Icons */
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
@@ -133,14 +137,14 @@
 @layer utilities {
   /* Grid Pattern for Backgrounds */
   .bg-grid-white\/10 {
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   .bg-grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
@@ -148,7 +152,11 @@
 
   /* Dots Pattern */
   .bg-dots-pattern {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    );
     background-size: 20px 20px;
   }
 }
@@ -320,7 +328,8 @@
 
 /* Pulse Glow Effect */
 @keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
   }
   50% {

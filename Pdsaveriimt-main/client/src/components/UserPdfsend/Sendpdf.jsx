@@ -27,7 +27,7 @@ const Sendpdf = () => {
       formdata.append('Student_Name', Student_Name);
 
       const senddata = await axios.post(
-        'http://localhost:9090/user/pdf/upload/user/pdf',
+        'https://uploadpdf2-0-2.onrender.com/user/pdf/upload/user/pdf',
         formdata,
         {
           withCredentials: true,

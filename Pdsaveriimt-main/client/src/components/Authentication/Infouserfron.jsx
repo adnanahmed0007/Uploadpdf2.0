@@ -17,7 +17,7 @@ const Infouserfron = () => {
     setError("");
 
     try {
-      const getUsetrInfo = await axios.get("https://uploadpdf2-0-1.onrender.com/authenttication/user/info", {
+      const getUsetrInfo = await axios.get("https://uploadpdf2-0-2.onrender.com/authenttication/user/info", {
         withCredentials: true,
       });
 
