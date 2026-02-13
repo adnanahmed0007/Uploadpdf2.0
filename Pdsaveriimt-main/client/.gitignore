@@ -1,0 +1,75 @@
+# =========================
+# Node Modules
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Environment Files
+# =========================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# =========================
+# Build Folders
+# =========================
+dist/
+build/
+.vite/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# VS Code / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# MongoDB Local Files (if any)
+# =========================
+*.db
+*.sqlite
+
+# =========================
+# Uploads Folder (if storing files locally)
+# =========================
+uploads/
+
+# =========================
+# Coverage (if testing)
+# =========================
+coverage/
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# Parcel Cache (just in case)
+# =========================
+.cache/
+
+# =========================
+# Mac System
+# =========================
+.AppleDouble
+.LSOverride
