@@ -29,7 +29,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5173",
-            "https://uploadpdf2-0.vercel.app",
+            "https://uploadpdf2-0.vercel.app/",
         ],
         credentials: true,
     })
