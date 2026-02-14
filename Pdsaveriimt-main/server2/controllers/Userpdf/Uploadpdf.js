@@ -1,69 +1,68 @@
-import Signupmakeschema from "../../models/Signup11.js";
-import dotenv from "dotenv";
-dotenv.config();
-
 import Uploadpdfuser from "../../models/UserPdupload.js";
-import cloudinary from "cloudinary"
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true
-});
-
-
 const UploadPdf = async (req, res) => {
+
   try {
     const file = req.file;
+
     if (!file) {
-      return res.status(400).json({ message: "There is no PDF file uploaded" });
+      return res.status(400).json({
+        message: "No PDF file uploaded",
+      });
     }
 
     const { department, year, branch, FileNampdfuser, Student_Name } = req.body;
 
     if (!department || !year || !branch || !FileNampdfuser || !Student_Name) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({
+        message: "All fields are required",
+      });
     }
 
 
-    cloudinary.v2.uploader.upload_stream(
-      { resource_type: "raw" },
-      async (error, result) => {
-        if (error) {
-          console.error("Cloudinary error:", error);
-          return res.status(500).json({ message: "Cloudinary upload failed" });
-        }
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          { resource_type: "raw" },
+          (error, result) => {
+            if (error) {
+              console.error("Cloudinary error:", error);
+              reject(error);
+            } else {
+              resolve(result);
+            }
+          }
+        )
+        .end(file.buffer);
+    });
 
-        const fileUrl = result.secure_url;
-        const user_Id = req.findId._id;
+    const fileUrl = uploadResult.secure_url;
 
-        const finduser = await Signupmakeschema.findById(user_Id);
-        if (!finduser) {
-          return res.status(400).json({ message: "User not found" });
-        }
 
-        const upload = new Uploadpdfuser({
-          department: department.toLowerCase(),
-          year,
-          branch: branch.toLowerCase(),
-          UserId: user_Id,
-          pdfFile: fileUrl,
-          Student_Name: Student_Name.toLowerCase(),
-          FileNampdfuser: FileNampdfuser.toLowerCase(),
-        });
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({
+        message: "Unauthorized user",
+      });
+    }
 
-        const savedData = await upload.save();
+    const savedData = await Uploadpdfuser.create({
+      department: department.toLowerCase(),
+      year,
+      branch: branch.toLowerCase(),
+      UserId: req.user._id,
+      pdfFile: fileUrl,
+      Student_Name: Student_Name.toLowerCase(),
+      FileNampdfuser: FileNampdfuser.toLowerCase(),
+    });
 
-        return res.status(200).json({
-          message: "PDF uploaded and data saved successfully",
-          savedData,
-        });
-      }
-    ).end(file.buffer); // Send the file buffer to Cloudinary
-  } catch (e) {
-    console.error(e);
+    return res.status(200).json({
+      message: "PDF uploaded successfully",
+      data: savedData,
+    });
+
+  } catch (error) {
+    console.error("Upload error:", error);
     return res.status(500).json({
-      message: "Internal server error",
+      message: error.message || "Internal server error",
     });
   }
 };

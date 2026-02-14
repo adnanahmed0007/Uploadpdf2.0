@@ -1,25 +1,35 @@
 import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import router from "./routes/Authentuicationroutes.js";
-import router1 from "./routes/Userpdfroutes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import dotenv from "dotenv";
 dotenv.config();
+import router from "./routes/Authentuicationroutes.js";
+import router1 from "./routes/Userpdfroutes.js";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+
 
 const app = express();
 
-// ✅ Use Render PORT
+// 🔥 VERY IMPORTANT FOR RENDER (SECURE COOKIES)
+app.set("trust proxy", 1);
+
 const PORT = process.env.PORT || 9090;
 const DB_URL = process.env.DB_URL;
 
-// ✅ CORS for development + production
+// ✅ CORS (NO "*" HERE)
 app.use(
     cors({
         origin: [
             "http://localhost:5173",
-            "https://uploadpdf2-0.vercel.app"
+            "https://uploadpdf2-0.vercel.app",
         ],
         credentials: true,
     })
@@ -29,11 +39,16 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
+console.log("ENV TEST:", process.env.CLOUDINARY_CLOUD_NAME);
+console.log("ENV TEST:", process.env.CLOUDINARY_API_KEY);
+console.log("API Secret:", process.env.CLOUDINARY_API_SECRET);
+
+
 
 app.use("/authenttication", router);
 app.use("/user/pdf", router1);
 
-// ✅ Connect DB and Start Server
+// ✅ DB Connectionn
 mongoose
     .connect(DB_URL)
     .then(() => {
@@ -43,5 +58,5 @@ mongoose
         });
     })
     .catch((err) => {
-        console.error("❌ MongoDB Connection Failed:", err);
+        console.log("❌ MongoDB Connection Failed:", err);
     });
