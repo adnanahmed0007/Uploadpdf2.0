@@ -14,7 +14,7 @@ const Sendpdf = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const BACKEND_URL = "https://uploadpdf2-0-2.onrender.com";
+  const BACKEND_URL = "https://uploadpdf2-0-3.onrender.com";
 
   // 🔥 File validation
   const handleFileChange = (e) => {
@@ -57,7 +57,7 @@ const Sendpdf = () => {
       formData.append('Student_Name', Student_Name.trim());
 
       const response = await axios.post(
-        `${BACKEND_URL}/user/pdf/upload`,
+        `https://uploadpdf2-0-3.onrender.com/user/pdf/upload/user/pdf`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
@@ -92,7 +92,7 @@ const Sendpdf = () => {
       const encodedName = encodeURIComponent(pdfName);
 
       const response = await axios.get(
-        `${BACKEND_URL}/user/pdf/get/downloadpdf/${encodedName}`,
+        `https://uploadpdf2-0-3.onrender.com/user/pdf/get/downloadpdf/${encodedName}`,
         {
           responseType: "blob",
         }
