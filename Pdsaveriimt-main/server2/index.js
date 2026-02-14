@@ -39,9 +39,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
-console.log("ENV TEST:", process.env.CLOUDINARY_CLOUD_NAME);
-console.log("ENV TEST:", process.env.CLOUDINARY_API_KEY);
-console.log("API Secret:", process.env.CLOUDINARY_API_SECRET);
+
 
 
 
