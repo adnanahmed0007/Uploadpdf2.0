@@ -38,14 +38,12 @@ const Signup = () => {
           name: name.trim().toLowerCase(),
         },
         {
-          withCredentials: true, // 🔥 VERY IMPORTANT
+          withCredentials: true,
         }
       );
 
       alert(response.data.message);
-
-      // ✅ Redirect after successful signup
-      navigate("/home");
+      navigate("/");
 
     } catch (e) {
       console.log(e);
