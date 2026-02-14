@@ -1,6 +1,13 @@
 import Uploadpdfuser from "../../models/UserPdupload.js";
-const UploadPdf = async (req, res) => {
+import { v2 as cloudinary } from "cloudinary";
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const UploadPdf = async (req, res) => {
   try {
     const file = req.file;
 
@@ -18,25 +25,17 @@ const UploadPdf = async (req, res) => {
       });
     }
 
-
     const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           { resource_type: "raw" },
           (error, result) => {
-            if (error) {
-              console.error("Cloudinary error:", error);
-              reject(error);
-            } else {
-              resolve(result);
-            }
+            if (error) reject(error);
+            else resolve(result);
           }
         )
         .end(file.buffer);
     });
-
-    const fileUrl = uploadResult.secure_url;
-
 
     if (!req.user || !req.user._id) {
       return res.status(401).json({
@@ -49,7 +48,7 @@ const UploadPdf = async (req, res) => {
       year,
       branch: branch.toLowerCase(),
       UserId: req.user._id,
-      pdfFile: fileUrl,
+      pdfFile: uploadResult.secure_url,
       Student_Name: Student_Name.toLowerCase(),
       FileNampdfuser: FileNampdfuser.toLowerCase(),
     });
