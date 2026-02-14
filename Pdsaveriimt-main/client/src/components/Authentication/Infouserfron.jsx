@@ -28,7 +28,12 @@ const Infouserfron = () => {
       if (e.response && e.response.status === 400) {
         console.log(e);
         setError(e.response.data.message + " - Please log in again");
-      } else {
+
+      }
+      if (e.response && e.response.status === 401) {
+        setError("Unauthorized - Please login again");
+      }
+      else {
         setError("Failed to fetch user information");
       }
       console.log(e);
