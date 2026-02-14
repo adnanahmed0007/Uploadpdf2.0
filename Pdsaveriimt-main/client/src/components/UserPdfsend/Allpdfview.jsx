@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-const BASE_URL = "https://uploadpdf2-0-1.onrender.com";
+const BASE_URL = "https://uploadpdf2-0-3.onrender.com";
 const Allpdfview = () => {
   const [department, setDepartment] = useState("");
   const [branch, setBranch] = useState("");
@@ -18,7 +18,7 @@ const Allpdfview = () => {
 
     try {
       if (department && branch && year && FileNampdfuser) {
-        const datagetback = await axios.post("https://uploadpdf2-0-2.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
+        const datagetback = await axios.post("https://uploadpdf2-0-3.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
           department: department.trim().toLowerCase(),
           branch: branch.trim().toLowerCase(),
           year,
@@ -29,7 +29,7 @@ const Allpdfview = () => {
           setArray(datagetback.data.dataget);
         }
       } else if (department && FileNampdfuser) {
-        const datagetback = await axios.post("https://uploadpdf2-0-1.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
+        const datagetback = await axios.post("https://uploadpdf2-0-3.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
           department: department.trim().toLowerCase(),
           FileNampdfuser: FileNampdfuser.trim().toLowerCase(),
         }, { withCredentials: true });
@@ -38,7 +38,7 @@ const Allpdfview = () => {
           setArray(datagetback.data.databackget);
         }
       } else if (department && branch && FileNampdfuser) {
-        const datagetback = await axios.post("https://uploadpdf2-0-1.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
+        const datagetback = await axios.post("https://uploadpdf2-0-3.onrender.com/user/pdf/get/departemnt/branch/year/pdf", {
           department: department.trim().toLowerCase(),
           FileNampdfuser: FileNampdfuser.trim().toLowerCase(),
           branch: branch.trim().toLowerCase(),
@@ -64,7 +64,7 @@ const Allpdfview = () => {
       const encodedPdfName = encodeURIComponent(pdfName);
 
       const response = await axios.get(
-        `https://uploadpdf2-0-1.onrender.com/user/pdf/get/downloadpdf/${encodedPdfName}`,
+        `https://uploadpdf2-0-3.onrender.com/user/pdf/get/downloadpdf/${encodedPdfName}`,
         {
           withCredentials: true,
           responseType: "blob",

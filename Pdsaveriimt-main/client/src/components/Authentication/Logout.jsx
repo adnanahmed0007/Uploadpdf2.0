@@ -4,7 +4,7 @@ import axios from 'axios'
 const Logout = () => {
   async function Handlseclick() {
     try {
-      const data_back = await axios.get("https://uploadpdf2-0-2.onrender.com/authenttication/user/logout", { withCredentials: true });
+      const data_back = await axios.get("https://uploadpdf2-0-3.onrender.com/authenttication/user/logout", { withCredentials: true });
       if (data_back) {
         alert(data_back.data.message);
       }
