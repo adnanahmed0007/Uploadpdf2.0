@@ -17,46 +17,45 @@ const Signup = () => {
     Setname
   } = useContext(MyContext);
 
-  const [dataget, setDataget] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       const response = await axios.post(
-        'https://uploadpdf2-0-2.onrender.com/authenttication/sinup',
+        "https://uploadpdf2-0-2.onrender.com/authenttication/sinup",
         {
           department: department.trim().toLowerCase(),
           username,
           password,
           email: email.trim().toLowerCase(),
-          name: name.trim().toLowerCase()
+          name: name.trim().toLowerCase(),
         },
-        { withCredentials: true }
+        {
+          withCredentials: true, // 🔥 VERY IMPORTANT
+        }
       );
 
-      if (response) {
-        alert(response.data.message);
-        setDataget(response.data.saveuser);
+      alert(response.data.message);
 
-        // Redirect to login after 2 seconds
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
-      }
+      // ✅ Redirect after successful signup
+      navigate("/home");
+
     } catch (e) {
       console.log(e);
-      if (e.response && e.response.status === 400) {
+      if (e.response) {
         alert(e.response.data.message);
       }
     } finally {
       setIsLoading(false);
     }
   }
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">

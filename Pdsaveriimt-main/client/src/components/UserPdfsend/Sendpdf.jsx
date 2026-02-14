@@ -1,78 +1,107 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true; // 🔥 Enable cookies globally
+
 const Sendpdf = () => {
   const [department, setDepartment] = useState('');
   const [year, setYear] = useState('');
   const [branch, setBranch] = useState('');
   const [FileNampdfuser, setFileNameodf] = useState('');
   const [pdfFile, setfile] = useState(null);
-  const [dataBack, getDataback] = useState('');
+  const [dataBack, getDataback] = useState(null);
   const [Student_Name, SetStudent_Name] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  async function handlesubmit(e) {
+  const BACKEND_URL = "https://uploadpdf2-0-2.onrender.com";
+
+  // 🔥 File validation
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      alert('Please select a PDF file');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File size should be less than 10MB');
+      return;
+    }
+
+    setfile(file);
+  };
+
+  // 🔥 Upload
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setUploadProgress(0);
+
+    if (!pdfFile) {
+      alert("Please select a PDF file");
+      return;
+    }
 
     try {
-      const formdata = new FormData();
-      formdata.append('department', department.trim().toLowerCase());
-      formdata.append('year', year);
-      formdata.append('branch', branch.trim().toLowerCase());
-      formdata.append('FileNampdfuser', FileNampdfuser.trim().toLowerCase());
-      formdata.append('pdfFile', pdfFile);
-      formdata.append('Student_Name', Student_Name);
+      setIsLoading(true);
+      setUploadProgress(0);
 
-      const senddata = await axios.post(
-        'https://uploadpdf2-0-2.onrender.com/user/pdf/upload/user/pdf',
-        formdata,
+      const formData = new FormData();
+      formData.append('department', department.trim().toLowerCase());
+      formData.append('year', year);
+      formData.append('branch', branch.trim().toLowerCase());
+      formData.append('FileNampdfuser', FileNampdfuser.trim().toLowerCase());
+      formData.append('pdfFile', pdfFile);
+      formData.append('Student_Name', Student_Name.trim());
+
+      const response = await axios.post(
+        `${BACKEND_URL}/user/pdf/upload`,
+        formData,
         {
-          withCredentials: true,
           onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-            setUploadProgress(percentCompleted);
+            if (progressEvent.total) {
+              const percent = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadProgress(percent);
+            }
           }
         }
       );
 
-      console.log(senddata);
-      if (senddata && senddata.status === 200) {
-        alert(senddata.data.message);
-        getDataback(senddata.data.savedData);
-        console.log(senddata.data.savedData);
-      }
-    } catch (e) {
-      if (e.response && e.response.status === 400) {
-        console.log(e);
-        alert(e.response.data.message);
+      alert(response.data.message);
+      getDataback(response.data.data);
+
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Upload failed");
       }
     } finally {
       setIsLoading(false);
-      setUploadProgress(0);
     }
-  }
+  };
 
-  async function handleDownload(pdfName) {
+  // 🔥 Download
+  const handleDownload = async (pdfName) => {
     try {
-      const encodedPdfName = encodeURIComponent(pdfName);
+      const encodedName = encodeURIComponent(pdfName);
 
       const response = await axios.get(
-        `https://uploadpdf2-0-1.onrender.com/user/pdf/get/downloadpdf/${encodedPdfName}`,
+        `${BACKEND_URL}/user/pdf/get/downloadpdf/${encodedName}`,
         {
-          withCredentials: true,
           responseType: "blob",
         }
       );
 
-      const contentType = response.headers['content-type'];
-      if (contentType !== 'application/pdf') {
-        throw new Error("The file is not a valid PDF.");
-      }
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
 
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: contentType }));
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", pdfName);
@@ -82,29 +111,12 @@ const Sendpdf = () => {
 
       window.URL.revokeObjectURL(url);
 
-      console.log("Download successful", response);
     } catch (error) {
       console.error("Download failed", error);
-      alert("Failed to download PDF. Please try again.");
-    }
-  }
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.type !== 'application/pdf') {
-        alert('Please select a PDF file');
-        e.target.value = '';
-        return;
-      }
-      if (file.size > 10 * 1024 * 1024) { // 10MB limit
-        alert('File size should be less than 10MB');
-        e.target.value = '';
-        return;
-      }
-      setfile(file);
+      alert("Download failed");
     }
   };
+  ;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
@@ -133,7 +145,7 @@ const Sendpdf = () => {
 
         {/* Upload Form Card */}
         <div className="backdrop-blur-xl bg-white/80 rounded-3xl shadow-2xl border border-white/20 p-8 mb-8 animate-fadeInUp">
-          <form onSubmit={handlesubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Student Name */}
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-700">
