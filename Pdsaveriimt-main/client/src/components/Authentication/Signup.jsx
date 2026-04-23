@@ -29,7 +29,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://uploadpdf2-0-3.onrender.com/authenttication/sinup",
+        "https://uploadpdf2-0-1.onrender.com/authenttication/sinup",
         {
           department: department.trim().toLowerCase(),
           username,

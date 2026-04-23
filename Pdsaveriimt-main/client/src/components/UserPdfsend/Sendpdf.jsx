@@ -57,7 +57,7 @@ const Sendpdf = () => {
       formData.append('Student_Name', Student_Name.trim());
 
       const response = await axios.post(
-        `https://uploadpdf2-0-3.onrender.com/user/pdf/upload/user/pdf`,
+        `https://uploadpdf2-0-1.onrender.com/user/pdf/upload/user/pdf`,
         formData,
         {
           onUploadProgress: (progressEvent) => {
@@ -92,7 +92,7 @@ const Sendpdf = () => {
       const encodedName = encodeURIComponent(pdfName);
 
       const response = await axios.get(
-        `https://uploadpdf2-0-3.onrender.com/user/pdf/get/downloadpdf/${encodedName}`,
+        `https://uploadpdf2-0-1.onrender.com/user/pdf/get/downloadpdf/${encodedName}`,
         {
           responseType: "blob",
         }

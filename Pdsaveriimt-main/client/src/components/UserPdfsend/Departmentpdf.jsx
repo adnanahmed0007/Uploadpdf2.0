@@ -14,7 +14,7 @@ const Departmentpdf = () => {
     setIsSearched(true);
 
     try {
-      const databackget = await axios.post("https://uploadpdf2-0-3.onrender.com/user/pdf/get/department/pdf", {
+      const databackget = await axios.post("https://uploadpdf2-0-1.onrender.com/user/pdf/get/department/pdf", {
         department: department.trim().toLowerCase(),
         year,
       }, { withCredentials: true });

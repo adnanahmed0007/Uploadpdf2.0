@@ -15,7 +15,7 @@ const Deparbranchyear = () => {
     setIsSearched(true);
 
     try {
-      const response = await axios.post("https://uploadpdf2-0-3.onrender.com/user/pdf/get/pdf", {
+      const response = await axios.post("https://uploadpdf2-0-1.onrender.com/user/pdf/get/pdf", {
         department: department.trim().toLowerCase(),
         branch: branch.trim().toLowerCase(),
         year: year,
