@@ -14,7 +14,7 @@ const Sendpdf = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const BACKEND_URL = "https://uploadpdf2-0-3.onrender.com";
+  const BACKEND_URL = "https://uploadpdf2-0-1.onrender.com";
 
   // 🔥 File validation
   const handleFileChange = (e) => {

@@ -41,7 +41,7 @@ const Deparbranchyear = () => {
       const encodedPdfName = encodeURIComponent(pdfName);
 
       const response = await axios.get(
-        `https://uploadpdf2-0-3.onrender.com/user/pdf/get/downloadpdf/${encodedPdfName}`,
+        `https://uploadpdf2-0-1.onrender.com/user/pdf/get/downloadpdf/${encodedPdfName}`,
         {
           withCredentials: true,
           responseType: "blob",
