@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "axios": "^1.13.5",
+    "baseline-browser-mapping": "^2.10.20",
+    "caniuse-lite": "^1.0.30001790",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0"

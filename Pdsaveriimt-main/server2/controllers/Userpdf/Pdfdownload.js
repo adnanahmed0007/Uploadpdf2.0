@@ -1,10 +1,10 @@
-    import axios from "axios";
+import axios from "axios";
 import Uploadpdfuser from "../../models/UserPdupload.js";
 
 const Pdfdownload = async (req, res) => {
   try {
     const { filename } = req.params;
-    
+
 
     // 1. Find the PDF data in DB
     const pdfData = await Uploadpdfuser.findOne({ FileNampdfuser: filename });
@@ -16,7 +16,7 @@ const Pdfdownload = async (req, res) => {
 
     const cloudinaryUrl = pdfData.pdfFile;
 
- 
+
 
     // 2. Stream the file from Cloudinary
     const fileResponse = await axios.get(cloudinaryUrl, {
@@ -24,13 +24,12 @@ const Pdfdownload = async (req, res) => {
       timeout: 10000, // 10 seconds timeout
     });
 
-    // 3. Set correct headers for PDF download
     res.attachment(`${filename}.pdf`);  // Ensures the file is treated as a downloadable PDF
 
     // 4. Pipe the file data from Cloudinary to the response
     fileResponse.data.pipe(res);
 
-     
+
     fileResponse.data.on("error", (err) => {
       console.error("❌ Error while streaming:", err.message);
       res.status(500).end("Stream error");
