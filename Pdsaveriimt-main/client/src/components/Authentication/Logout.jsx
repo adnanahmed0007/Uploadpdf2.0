@@ -17,9 +17,9 @@ const Logout = () => {
       }
     } catch (e) {
       console.log(e)
-      if (e.response && e.response.status === 400) {
-        alert(e.response.data.message + " " + "first login then logout")
-      }
+      if (e.response && (e.response.status === 400 || e.response.status === 401)) {
+  alert(e.response.data.message + " " + "first login then logout")
+}
     } finally {
       setLoading(false)
     }
