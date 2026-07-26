@@ -112,14 +112,17 @@ const Departmentpdf = () => {
                     className="w-full pl-12 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
                     required
                   >
-                    <option value="">Select department</option>
-                    <option value="computer science">Computer Science</option>
-                    <option value="electrical engineering">Electrical Engineering</option>
-                    <option value="mechanical engineering">Mechanical Engineering</option>
-                    <option value="civil engineering">Civil Engineering</option>
-                    <option value="electronics">Electronics & Communication</option>
-                    <option value="information technology">Information Technology</option>
-                    <option value="other">Other</option>
+                     <option value="">Select department</option>
+                      <option value="btech">B.Tech</option>
+                      <option value="bca">BCA</option>
+                      <option value="bsc">B.Sc</option>
+                      <option value="bcom">B.Com</option>
+                      <option value="ba">BA</option>
+                      <option value="mba">MBA</option>
+                      <option value="mca">MCA</option>
+                      <option value="msc">M.Sc</option>
+                      <option value="mtech">M.Tech</option>
+                      <option value="other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
