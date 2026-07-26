@@ -1,7 +1,7 @@
-
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import img from './iimhyjhydd.jpeg';
+import Logout from './Authentication/Logout';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,7 +103,7 @@ const Header = () => {
             <div className="w-px h-8 bg-gray-300 mx-2"></div>
 
             <NavLink to="/userInfo" label="Profile" icon="👤" isActive={isActive('/userInfo')} />
-            <NavLink to="/userlogedout" label="Logout" icon="🚪" isActive={isActive('/userlogedout')} />
+            <Logout />
 
             <Link to="/login">
               <button className="ml-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
@@ -152,7 +152,10 @@ const Header = () => {
             <MobileNavLink to="/userInfo" label="Profile" icon="👤" onClick={() => setIsMenuOpen(false)} isActive={isActive('/userInfo')} />
             <MobileNavLink to="/signup" label="Sign Up" icon="✍️" onClick={() => setIsMenuOpen(false)} isActive={isActive('/signup')} />
             <MobileNavLink to="/login" label="Login" icon="🔐" onClick={() => setIsMenuOpen(false)} isPrimary />
-            <MobileNavLink to="/userlogedout" label="Logout" icon="🚪" onClick={() => setIsMenuOpen(false)} isActive={isActive('/userlogedout')} />
+
+            <div className="px-2">
+              <Logout />
+            </div>
           </div>
         </div>
       </div>
