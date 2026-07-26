@@ -10,39 +10,38 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setIsLoading(true);
+ async function handleSubmit(e) {
+  e.preventDefault();
+  setIsLoading(true);
 
-    try {
-      const data_Get = await axios.post(
-        "https://uploadpdf2-0-1.onrender.com/authenttication/login",
-        {
-          email,
-          password
-        },
-        { withCredentials: true }
-      );
+  try {
+    const data_Get = await axios.post(
+      "https://uploadpdf2-0-1.onrender.com/authenttication/login",
+      { email, password },
+      { withCredentials: true }
+    );
 
-      console.log(data_Get);
+    console.log(data_Get);
 
-      if (data_Get) {
-        alert(data_Get.data.message);
-        setDta(data_Get.data.findOne);
+    if (data_Get) {
+      alert(data_Get.data.message);
+      setDta(data_Get.data.user);
 
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
-      }
-    } catch (e) {
-      if (e.response && e.response.status === 400) {
-        console.log(e);
-        alert(e.response.data.message);
-      }
-    } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
     }
+  } catch (e) {
+    console.log(e);
+    if (e.response && (e.response.status === 400 || e.response.status === 401)) {
+      alert(e.response.data.message);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  } finally {
+    setIsLoading(false);
   }
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
