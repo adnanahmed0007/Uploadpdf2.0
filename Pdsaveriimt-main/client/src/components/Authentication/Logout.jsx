@@ -32,9 +32,9 @@ const Logout = () => {
       <button
         onClick={() => setShowConfirm(true)}
         disabled={loading}
-        className="w-full py-3.5 px-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+        className="inline-flex items-center justify-center gap-2 py-2 px-5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-semibold text-sm rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
       >
-        <LogOut size={18} />
+        <LogOut size={16} />
         {loading ? "Logging out..." : "Log Out"}
       </button>
 
