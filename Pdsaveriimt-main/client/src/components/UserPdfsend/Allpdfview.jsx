@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import axios from "axios";
 
 const BASE_URL = "https://uploadpdf2-0-3.onrender.com";
@@ -147,12 +147,15 @@ const Allpdfview = () => {
                       required
                     >
                       <option value="">Select department</option>
-                      <option value="computer science">Computer Science</option>
-                      <option value="electrical engineering">Electrical Engineering</option>
-                      <option value="mechanical engineering">Mechanical Engineering</option>
-                      <option value="civil engineering">Civil Engineering</option>
-                      <option value="electronics">Electronics & Communication</option>
-                      <option value="information technology">Information Technology</option>
+                      <option value="btech">B.Tech</option>
+                      <option value="bca">BCA</option>
+                      <option value="bsc">B.Sc</option>
+                      <option value="bcom">B.Com</option>
+                      <option value="ba">BA</option>
+                      <option value="mba">MBA</option>
+                      <option value="mca">MCA</option>
+                      <option value="msc">M.Sc</option>
+                      <option value="mtech">M.Tech</option>
                       <option value="other">Other</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -216,12 +219,28 @@ const Allpdfview = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                       </svg>
                     </div>
-                    <input
+                    <select
                       onChange={(e) => setBranch(e.target.value)}
-                      type="text"
-                      placeholder="e.g., CSE, ECE, ME"
-                      className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    />
+                      className="w-full pl-12 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
+                    >
+                      <option value="">Select branch (optional)</option>
+                      <option value="cse">CSE - Computer Science Engineering</option>
+                      <option value="it">IT - Information Technology</option>
+                      <option value="ece">ECE - Electronics & Communication</option>
+                      <option value="eee">EEE - Electrical & Electronics</option>
+                      <option value="me">ME - Mechanical Engineering</option>
+                      <option value="ce">CE - Civil Engineering</option>
+                      <option value="csai">CSE (AI & ML)</option>
+                      <option value="csds">CSE (Data Science)</option>
+                      <option value="cse-iot">CSE (IoT)</option>
+                      <option value="biotech">Biotechnology</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
