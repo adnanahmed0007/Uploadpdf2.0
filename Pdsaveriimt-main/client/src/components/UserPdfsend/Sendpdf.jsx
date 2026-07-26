@@ -186,12 +186,15 @@ const Sendpdf = () => {
                     required
                   >
                     <option value="">Select department</option>
-                    <option value="computer science">Computer Science</option>
-                    <option value="electrical engineering">Electrical Engineering</option>
-                    <option value="mechanical engineering">Mechanical Engineering</option>
-                    <option value="civil engineering">Civil Engineering</option>
-                    <option value="electronics">Electronics & Communication</option>
-                    <option value="information technology">Information Technology</option>
+                    <option value="btech">B.Tech</option>
+                    <option value="bca">BCA</option>
+                    <option value="bsc">B.Sc</option>
+                    <option value="bcom">B.Com</option>
+                    <option value="ba">BA</option>
+                    <option value="mba">MBA</option>
+                    <option value="mca">MCA</option>
+                    <option value="msc">M.Sc</option>
+                    <option value="mtech">M.Tech</option>
                     <option value="other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
@@ -246,13 +249,29 @@ const Sendpdf = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <input
+                  <select
                     onChange={(e) => setBranch(e.target.value)}
-                    type="text"
-                    placeholder="e.g., CSE, ECE, ME"
-                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full pl-12 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
                     required
-                  />
+                  >
+                    <option value="">Select branch</option>
+                    <option value="cse">CSE - Computer Science Engineering</option>
+                    <option value="it">IT - Information Technology</option>
+                    <option value="ece">ECE - Electronics & Communication</option>
+                    <option value="eee">EEE - Electrical & Electronics</option>
+                    <option value="me">ME - Mechanical Engineering</option>
+                    <option value="ce">CE - Civil Engineering</option>
+                    <option value="csai">CSE (AI & ML)</option>
+                    <option value="csds">CSE (Data Science)</option>
+                    <option value="cse-iot">CSE (IoT)</option>
+                    <option value="biotech">Biotechnology</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
