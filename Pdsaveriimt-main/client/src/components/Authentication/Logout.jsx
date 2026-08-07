@@ -1,13 +1,17 @@
- import React, { useState } from 'react';
+ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, X, AlertTriangle, Loader2 } from 'lucide-react';
+import MyContext from '../Mycontext';
 
 const Logout = () => {
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [feedback, setFeedback] = useState({ type: '', message: '' });
   const navigate = useNavigate();
+
+  // Consume Context to update auth state globally
+  const { setIsLoggedIn } = useContext(MyContext);
 
   async function handleClick() {
     setLoading(true);
@@ -20,12 +24,17 @@ const Logout = () => {
       );
 
       if (response.status === 200) {
+        // Clear local storage and update context
+        localStorage.removeItem("token");
+        if (setIsLoggedIn) {
+          setIsLoggedIn(false);
+        }
+
         setFeedback({
           type: 'success',
           message: response.data.message || "Successfully logged out!",
         });
         
-        // Wait briefly for user to see success feedback, then redirect
         setTimeout(() => {
           setShowConfirm(false);
           navigate('/login');
