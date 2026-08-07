@@ -4,7 +4,7 @@ import img from './iimhyjhydd.jpeg';
 import Logout from './Authentication/Logout';
 import { useTheme } from './Authentication/ThemeContext';
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
   const location = useLocation();
@@ -106,20 +106,25 @@ const Header = () => {
 
             <div className="w-px h-8 bg-gray-300 dark:bg-slate-700 mx-2"></div>
 
-            <NavLink to="/userInfo" label="Profile" icon="👤" isActive={isActive('/userInfo')} />
-            <Logout />
-
-            <Link to="/login">
-              <button className="ml-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
-                <span>🔐</span>
-                <span>Login</span>
-              </button>
-            </Link>
+            {/* CONDITIONAL AUTH NAVIGATION (DESKTOP) */}
+            {isLoggedIn ? (
+              <>
+                <NavLink to="/userInfo" label="Profile" icon="👤" isActive={isActive('/userInfo')} />
+                <Logout />
+              </>
+            ) : (
+              <Link to="/login">
+                <button className="ml-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                  <span>🔐</span>
+                  <span>Login</span>
+                </button>
+              </Link>
+            )}
 
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-200 flex items-center justify-center border border-gray-200/60 dark:border-slate-700"
+              className="p-2.5 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-200 flex items-center justify-center border border-gray-200/60 dark:border-slate-700 ml-2"
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               <span className="text-xl">{theme === 'dark' ? '☀️' : '🌙'}</span>
@@ -171,13 +176,20 @@ const Header = () => {
 
             <div className="border-t border-gray-200 dark:border-slate-800 my-2"></div>
 
-            <MobileNavLink to="/userInfo" label="Profile" icon="👤" onClick={() => setIsMenuOpen(false)} isActive={isActive('/userInfo')} />
-            <MobileNavLink to="/signup" label="Sign Up" icon="✍️" onClick={() => setIsMenuOpen(false)} isActive={isActive('/signup')} />
-            <MobileNavLink to="/login" label="Login" icon="🔐" onClick={() => setIsMenuOpen(false)} isPrimary />
-
-            <div className="px-2">
-              <Logout />
-            </div>
+            {/* CONDITIONAL AUTH NAVIGATION (MOBILE) */}
+            {isLoggedIn ? (
+              <>
+                <MobileNavLink to="/userInfo" label="Profile" icon="👤" onClick={() => setIsMenuOpen(false)} isActive={isActive('/userInfo')} />
+                <div className="px-2 pt-2">
+                  <Logout />
+                </div>
+              </>
+            ) : (
+              <>
+                <MobileNavLink to="/signup" label="Sign Up" icon="✍️" onClick={() => setIsMenuOpen(false)} isActive={isActive('/signup')} />
+                <MobileNavLink to="/login" label="Login" icon="🔐" onClick={() => setIsMenuOpen(false)} isPrimary />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -185,7 +197,7 @@ const Header = () => {
   );
 };
 
-// Desktop Navigation Link Component
+// Sub-components stay the same...
 const NavLink = ({ to, label, icon, isActive }) => (
   <Link
     to={to}
@@ -200,7 +212,6 @@ const NavLink = ({ to, label, icon, isActive }) => (
   </Link>
 );
 
-// Dropdown Link Component
 const DropdownLink = ({ to, label, icon, description, isActive }) => (
   <Link
     to={to}
@@ -229,7 +240,6 @@ const DropdownLink = ({ to, label, icon, description, isActive }) => (
   </Link>
 );
 
-// Mobile Navigation Link Component
 const MobileNavLink = ({ to, label, icon, onClick, isPrimary, isActive }) => (
   <Link
     to={to}
