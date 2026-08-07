@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { email, setEmail, password, setPassword } = useContext(MyContext);
+  // 1. Pull setIsLoggedIn from Context
+  const { email, setEmail, password, setPassword, setIsLoggedIn } = useContext(MyContext);
   const [dataget_login, setDta] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +27,14 @@ const Login = () => {
       if (data_Get) {
         alert(data_Get.data.message);
         setDta(data_Get.data.user);
+
+        // 2. Store session/token in localStorage
+        localStorage.setItem("token", data_Get.data.token || "logged_in");
+
+        // 3. Update global login state so Header updates immediately
+        if (setIsLoggedIn) {
+          setIsLoggedIn(true);
+        }
 
         setTimeout(() => {
           navigate('/');
