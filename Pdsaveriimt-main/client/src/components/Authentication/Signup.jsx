@@ -14,7 +14,8 @@ const Signup = () => {
     email,
     setEmail,
     name,
-    Setname
+    Setname,
+    setIsLoggedIn // 1. Access setIsLoggedIn from context
   } = useContext(MyContext);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -41,13 +42,30 @@ const Signup = () => {
         }
       );
 
-      alert(response.data.message);
-      navigate("/");
+      if (response) {
+        alert(response.data.message || "Signup successful!");
+        setDataget(response.data.user || { name, email, department });
+
+        // 2. Save auth token/session in LocalStorage
+        localStorage.setItem("token", response.data.token || "logged_in");
+
+        // 3. Update global login state immediately so Header shows Logout
+        if (setIsLoggedIn) {
+          setIsLoggedIn(true);
+        }
+
+        // Redirect to Home page after a short delay
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      }
 
     } catch (e) {
       console.log(e);
       if (e.response) {
         alert(e.response.data.message);
+      } else {
+        alert("Something went wrong during registration.");
       }
     } finally {
       setIsLoading(false);
@@ -293,7 +311,7 @@ const Signup = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-green-600 dark:text-green-400">Registration Successful!</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Redirecting to login...</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Redirecting to homepage...</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm">
